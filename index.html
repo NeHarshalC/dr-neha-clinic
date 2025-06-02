@@ -3,10 +3,590 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My First Webpage</title>
+    <title>Dr. Chaudhari (BHMS, MD Homeopathy) - Holistic Clinic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Base styles for body and headings */
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #F9F9F9; /* Very light grey background */
+            color: #555555; /* Medium grey for main text */
+            margin: 0; /* Ensure no default body margin */
+            overflow-x: hidden; /* Prevent horizontal scroll due to mobile menu animation */
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Lora', serif; /* Elegant serif for headings */
+            color: #2A2A2A; /* Deep charcoal for headings */
+        }
+        /* Custom styles for rounded corners on all elements */
+        * {
+            border-radius: 0.5rem; /* Apply rounded corners */
+        }
+        /* General container for content width */
+        .container {
+            max-width: 1200px;
+            padding-left: 1.5rem; /* Default padding for mobile */
+            padding-right: 1.5rem; /* Default padding for mobile */
+        }
+        @media (min-width: 768px) { /* Medium screens and up */
+            .container {
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
+        }
+        @media (min-width: 1024px) { /* Large screens and up */
+            .container {
+                padding-left: 3rem;
+                padding-right: 3rem;
+            }
+        }
+
+        /* Section heading style */
+        .section-heading {
+            position: relative;
+            margin-bottom: 3rem; /* More space below heading */
+            padding-bottom: 1rem;
+            font-size: 2.25rem; /* Default for mobile (text-4xl in Tailwind) */
+            font-weight: 700;
+            text-align: center;
+            line-height: 1.2;
+        }
+        @media (min-width: 768px) {
+            .section-heading {
+                font-size: 2.8rem; /* md:text-5xl equivalent */
+            }
+        }
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 0;
+            height: 3px; /* Subtle underline */
+            width: 80px; /* Wider underline */
+            background-color: #B8926A; /* Muted Gold/Bronze accent */
+            border-radius: 2px;
+        }
+        /* Primary button styling */
+        .btn-primary {
+            background-color: #005F60; /* Deep Teal */
+            color: white;
+            font-weight: 600;
+            padding: 0.9rem 2.5rem;
+            border-radius: 9999px; /* Fully rounded */
+            box-shadow: 0 6px 15px rgba(0, 95, 96, 0.3);
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            letter-spacing: 0.05em; /* Slightly spaced letters */
+        }
+        .btn-primary:hover {
+            background-color: #004546; /* Darker Teal on hover */
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 95, 96, 0.4);
+        }
+
+        /* Card styling for services and success stories */
+        .card {
+            background-color: #FFFFFF; /* Pure white for cards */
+            padding: 2.5rem; /* More padding */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05); /* Softer, more diffused shadow */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border: 1px solid #E0E0E0; /* Subtle border */
+        }
+        .card:hover {
+            transform: translateY(-10px); /* More pronounced lift */
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1); /* Deeper shadow on hover */
+        }
+        .card i {
+            margin-bottom: 1.8rem; /* More space below icon */
+            color: #B8926A; /* Muted Gold/Bronze for service icons */
+            font-size: 3.5rem; /* Larger, more prominent icons */
+        }
+        .success-story-card i {
+            color: #66BB6A; /* Natural Green for success icons */
+        }
+
+        /* FAQ item styling */
+        .faq-item {
+            background-color: #FFFFFF; /* Pure white for FAQ items */
+            border: 1px solid #E0E0E0;
+            padding: 1.8rem 2.5rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+        }
+        .faq-item:hover {
+            background-color: #F8F8F8;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+        }
+        .faq-question {
+            font-weight: 600;
+            color: #2A2A2A; /* Deep charcoal */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.15rem; /* Default for mobile */
+        }
+        @media (min-width: 768px) {
+            .faq-question {
+                font-size: 1.2rem; /* md:text-lg equivalent */
+            }
+        }
+        .faq-answer {
+            margin-top: 1.2rem;
+            color: #666666; /* Slightly lighter gray for answer text */
+            display: none;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s ease-out, opacity 0.6s ease-out; /* Slower transition */
+            opacity: 0;
+            line-height: 1.7; /* Better readability */
+            font-size: 1rem; /* Default for mobile */
+        }
+        @media (min-width: 768px) {
+            .faq-answer {
+                font-size: 1.05rem; /* md:text-base equivalent */
+            }
+        }
+        .faq-answer.active {
+            display: block;
+            max-height: 400px; /* Increased max-height for smoother transition */
+            opacity: 1;
+        }
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+        .faq-icon.rotate {
+            transform: rotate(180deg);
+        }
+
+        /* Mobile Menu Specific Styles */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+            z-index: 999; /* High z-index to be on top */
+            display: flex;
+            justify-content: flex-end; /* Align menu to the right */
+            visibility: hidden; /* Hidden by default */
+            opacity: 0; /* Start fully transparent */
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .mobile-menu-overlay.open {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .mobile-menu-content {
+            background-color: #FFFFFF; /* White background for the menu */
+            width: 75%; /* 3/4 width on small screens */
+            max-width: 300px; /* Max width for larger mobiles/tablets */
+            height: 100%;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2); /* Shadow on the left edge */
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            transform: translateX(100%); /* Start off-screen to the right */
+            transition: transform 0.3s ease-out;
+        }
+        .mobile-menu-overlay.open .mobile-menu-content {
+            transform: translateX(0); /* Slide into view */
+        }
+
+        .mobile-menu-content ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+        }
+        .mobile-menu-content li {
+            margin-bottom: 1rem; /* Space between menu items */
+        }
+        .mobile-menu-content a {
+            display: block;
+            padding: 0.75rem 0;
+            font-size: 1.25rem; /* Larger font for mobile links */
+            font-weight: 600;
+            color: #2A2A2A; /* Deep charcoal for menu links */
+            transition: color 0.2s ease;
+        }
+        .mobile-menu-content a:hover {
+            color: #005F60; /* Teal on hover */
+        }
+        .mobile-menu-close-btn {
+            align-self: flex-end; /* Align close button to top right */
+            font-size: 2rem;
+            color: #555555;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            margin-bottom: 1.5rem;
+            transition: color 0.2s ease;
+        }
+        .mobile-menu-close-btn:hover {
+            color: #2A2A2A;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to My Website</h1>
-    <p>This is my first HTML file!</p>
+
+    <header class="bg-white shadow-sm py-5 relative z-40">
+        <div class="container mx-auto px-4 sm:px-6 md:px-8 flex justify-between items-center">
+            <div class="text-2xl sm:text-3xl font-bold text-gray-800">Dr. Chaudhari <span class="text-base sm:text-lg text-gray-600 block sm:inline">(BHMS, MD Homeopathy)</span></div>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-6 lg:space-x-10">
+                    <li><a href="#hero" class="text-gray-700 hover:text-[#B8926A] transition duration-300 font-semibold">Home</a></li>
+                    <li><a href="#services" class="text-gray-700 hover:text-[#B8926A] transition duration-300 font-semibold">Services</a></li>
+                    <li><a href="#success-stories" class="text-gray-700 hover:text-[#B8926A] transition duration-300 font-semibold">Success Stories</a></li>
+                    <li><a href="#booking" class="text-gray-700 hover:text-[#B8926A] transition duration-300 font-semibold">Appointment</a></li>
+                    <li><a href="#about" class="text-gray-700 hover:text-[#B8926A] transition duration-300 font-semibold">About Us</a></li>
+                    <li><a href="#faq" class="text-gray-700 hover:text-[#B8926A] transition duration-300 font-semibold">FAQ</a></li>
+                    <li><a href="#contact" class="text-gray-700 hover:text-[#B8926A] transition duration-300 font-semibold">Contact</a></li>
+                </ul>
+            </nav>
+            <button
+                id="mobile-menu-button"
+                class="md:hidden text-gray-700 text-2xl focus:outline-none"
+                aria-label="Open mobile menu"
+            >
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <div id="mobile-menu-overlay" class="mobile-menu-overlay">
+        <div class="mobile-menu-content">
+            <button
+                id="mobile-menu-close-button"
+                class="mobile-menu-close-btn"
+                aria-label="Close mobile menu"
+            >
+                <i class="fas fa-times"></i>
+            </button>
+            <ul>
+                <li><a href="#hero" class="mobile-nav-link">Home</a></li>
+                <li><a href="#services" class="mobile-nav-link">Services</a></li>
+                <li><a href="#success-stories" class="mobile-nav-link">Success Stories</a></li>
+                <li><a href="#booking" class="mobile-nav-link">Appointment</a></li>
+                <li><a href="#about" class="mobile-nav-link">About Us</a></li>
+                <li><a href="#faq" class="mobile-nav-link">FAQ</a></li>
+                <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <section id="hero" class="bg-gradient-to-br from-[#005F60] to-[#004546] text-white py-24 md:py-32 text-center shadow-lg">
+        <div class="container mx-auto px-4 sm:px-6 md:px-8">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mb-6">Embrace Holistic Healing with Dr. Chaudhari</h1>
+            <p class="text-lg sm:text-xl md:text-2xl mb-10 md:mb-12 max-w-4xl mx-auto opacity-90">Dedicated to providing personalized homeopathic care for your lasting health and vitality, right here at our clinic.</p>
+            <a href="#booking" class="btn-primary inline-block text-lg">Schedule Your Visit</a>
+        </div>
+    </section>
+
+    <section id="services" class="py-16 md:py-24 bg-[#F9F9F9]">
+        <div class="container mx-auto px-4 sm:px-6 md:px-8">
+            <h2 class="section-heading text-3xl md:text-4xl lg:text-5xl">Our Comprehensive Services</h2>
+            <p class="text-gray-700 text-base md:text-xl mb-10 md:mb-16 text-center max-w-4xl mx-auto leading-relaxed">Dr. Chaudhari offers compassionate and individualized homeopathic treatment, focusing on your unique health needs for sustainable well-being.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+                <div class="card">
+                     <i class="fas fa-child"></i>
+                    <h3 class="text-xl md:text-2xl font-semibold mb-3">Child Health</h3>
+                    <p class="text-gray-600 text-sm md:text-base leading-relaxed">Gentle and safe homeopathic remedies for children's common ailments like recurring coughs, colds, allergies, and even behavioral challenges, helping your child thrive naturally.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-kidney"></i>
+                    <h3 class="text-xl md:text-2xl font-semibold mb-3">Kidney Stones</h3>
+                    <p class="text-gray-600 text-sm md:text-base leading-relaxed">Holistic support to manage the discomfort of kidney stones, aid in their natural expulsion, and help prevent their recurrence, promoting kidney health without harsh interventions.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-cut"></i>
+                    <h3 class="text-xl md:text-2xl font-semibold mb-3">Hair Loss</h3>
+                    <p class="text-gray-600 text-sm md:text-base leading-relaxed">Personalized homeopathic approaches to identify and address the underlying causes of hair loss, encouraging natural hair regrowth and restoring your scalp health and confidence.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-stomach"></i>
+                    <h3 class="text-xl md:text-2xl font-semibold mb-3">Stomach Issues</h3>
+                    <p class="text-gray-600 text-sm md:text-base leading-relaxed">Effective relief for a range of digestive complaints including chronic acidity, bloating, irritable bowel syndrome (IBS), and indigestion, leading to improved gut comfort and overall vitality.</p>
+                </div>
+                 <div class="card">
+                    <i class="fas fa-head-side-mask"></i>
+                    <h3 class="text-xl md:text-2xl font-semibold mb-3">Migraine</h3>
+                    <p class="text-gray-600 text-sm md:text-base leading-relaxed">Reducing the frequency and intensity of debilitating migraines through tailored homeopathic remedies, helping you regain clarity and freedom from severe headaches, improving daily life.</p>
+                </div>
+                <div class="card">
+                     <i class="fas fa-female"></i>
+                    <h3 class="text-xl md:text-2xl font-semibold mb-3">Women's Care</h3>
+                    <p class="text-gray-600 text-sm md:text-base leading-relaxed">Compassionate homeopathic support for various women's health concerns, including menstrual irregularities, PCOD, menopausal symptoms, and gentle care during pregnancy, promoting hormonal balance and well-being.</p>
+                </div>
+            </div>
+             <div class="mt-16 md:mt-20 text-center text-gray-700 text-base md:text-xl max-w-5xl mx-auto leading-relaxed">
+                <p>Dr. Chaudhari utilizes the profound principles of homeopathic repertory and a holistic approach to find the most precise remedy for your unique symptoms, guiding you towards enduring health and vitality.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="patient-count-section" class="py-16 md:py-20 bg-gradient-to-r from-[#004546] to-[#003333] text-white text-center shadow-inner">
+        <div class="container mx-auto px-4 sm:px-6 md:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 md:mb-6">Our Impact in Numbers</h2>
+            <p class="text-6xl md:text-7xl lg:text-8xl font-extrabold mb-4 md:mb-6" id="patient-count">2000+</p>
+            <p class="text-lg md:text-xl max-w-3xl mx-auto opacity-90">Patients have found lasting relief and improved well-being through Dr. Chaudhari's compassionate care.</p>
+             <p class="mt-4 md:mt-6 text-sm italic opacity-70">(This count reflects our commitment to healing and is updated through our clinic records.)</p>
+        </div>
+    </section>
+
+    <section id="success-stories" class="py-16 md:py-24 bg-[#F9F9F9]">
+        <div class="container mx-auto px-4 sm:px-6 md:px-8">
+            <h2 class="section-heading text-3xl md:text-4xl lg:text-5xl">Hear From Our Happy Patients</h2>
+            <p class="text-gray-700 text-base md:text-xl mb-10 md:mb-16 text-center max-w-4xl mx-auto leading-relaxed">Real stories of healing and transformation that inspire us every day, reflecting the power of personalized homeopathic treatment.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+                <div class="success-story-card card">
+                    <i class="fas fa-child text-[#66BB6A]"></i>
+                    <h3 class="text-xl md:text-2xl font-semibold text-gray-700 mb-3">A Healthier Childhood</h3>
+                    <p class="text-gray-600 text-sm md:text-base italic leading-relaxed">"My son used to get sick constantly with coughs and colds. After starting homeopathy with Dr. Chaudhari, his immunity has significantly improved, and he's much healthier now. It's truly a blessing for our family!" - A grateful parent</p>
+                </div>
+                 <div class="success-story-card card">
+                    <i class="fas fa-kidney text-[#66BB6A]"></i>
+                    <h3 class="text-xl md:text-2xl font-semibold text-gray-700 mb-3">Relief from Kidney Stones</h3>
+                    <p class="text-gray-600 text-sm md:text-base italic leading-relaxed">"The pain from my kidney stone was unbearable. Dr. Chaudhari's treatment not only eased the pain but also helped me pass the stone naturally. I'm amazed by the gentle yet powerful effect of homeopathy." - R. Sharma</p>
+                </div>
+                 <div class="success-story-card card">
+                    <i class="fas fa-cut text-[#66BB6A]"></i>
+                    <h3 class="text-xl md:text-2xl font-semibold text-gray-700 mb-3">Renewed Hair & Confidence</h3>
+                    <p class="text-gray-600 text-sm md:text-base italic leading-relaxed">"I was so worried about my thinning hair. Dr. Chaudhari took a detailed case, and within a few months, I noticed new hair growth and much less hair fall. My confidence is back, and I feel great!" - Priya S.</p>
+                </div>
+                 <div class="success-story-card card">
+                    <i class="fas fa-stomach text-[#66BB6A]"></i>
+                    <h3 class="text-xl md:text-2xl font-semibold text-gray-700 mb-3">Digestive Harmony</h3>
+                    <p class="text-gray-600 text-sm md:text-base italic leading-relaxed">"For years, I struggled with chronic acidity and bloating. Homeopathy with Dr. Chaudhari has transformed my digestion. I no longer feel uncomfortable after meals and have so much more energy to enjoy life." - Anil K.</p>
+                </div>
+                 <div class="success-story-card card">
+                    <i class="fas fa-head-side-mask text-[#66BB6A]"></i>
+                    <h3 class="text-xl md:text-2xl font-semibold text-gray-700 mb-3">Freedom from Migraines</h3>
+                    <p class="text-gray-600 text-sm md:text-base italic leading-relaxed">"Migraines used to incapacitate me for days. Thanks to Dr. Chaudhari's personalized approach, my migraines are now much less frequent and far less severe. I can finally live my life without constant fear of an attack." - Shweta D.</p>
+                </div>
+                 <div class="success-story-card card">
+                    <i class="fas fa-female text-[#66BB6A]"></i>
+                    <h3 class="text-xl md:text-2xl font-semibold text-gray-700 mb-3">Empowering Women's Health</h3>
+                    <p class="text-gray-600 text-sm md:text-base italic leading-relaxed">"Homeopathy with Dr. Chaudhari has been incredibly supportive for my specific women's health issue. I feel much more balanced and healthier overall, thanks to her gentle and effective remedies. Highly recommend!" - Deepa R.</p>
+                </div>
+            </div>
+             <div class="mt-16 md:mt-20 text-center text-gray-700 text-base md:text-xl max-w-5xl mx-auto leading-relaxed">
+                <p>Every patient's journey is unique, and Dr. Chaudhari is dedicated to helping you achieve your health goals with a personalized and holistic approach.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="booking" class="py-16 md:py-24 bg-[#F2F4F7]">
+        <div class="container mx-auto px-4 sm:px-6 md:px-8">
+            <h2 class="section-heading text-3xl md:text-4xl lg:text-5xl">Book Your Clinic Appointment</h2>
+            <div class="bg-white p-8 md:p-12 shadow-xl text-center max-w-2xl mx-auto">
+                <p class="text-gray-700 text-base md:text-xl mb-6 md:mb-8 leading-relaxed">To schedule your personalized consultation at our clinic, please reach out to us directly by phone during our consultation hours. We look forward to assisting you.</p>
+
+                <div class="mb-8 md:mb-12">
+                    <p class="text-2xl md:text-3xl font-semibold text-[#2A2A2A] mb-3 md:mb-4">Call Us Today:</p>
+                    <a href="tel:+91[Your Phone Number]" class="text-4xl md:text-5xl font-bold text-[#66BB6A] hover:text-[#509C54] transition duration-300">
+                        <i class="fas fa-phone-alt inline-block w-10 h-10 md:w-14 md:h-14 mr-3 md:mr-4 align-middle"></i> +91 [Your Phone Number]
+                    </a>
+                </div>
+
+                <div class="text-left text-gray-600 text-sm md:text-lg space-y-2 md:space-y-3">
+                    <p><span class="font-semibold text-[#2A2A2A]">Consultation Hours:</span> [e.g., Monday - Saturday, 10:00 AM - 1:00 PM & 5:00 PM - 8:00 PM IST]</p>
+                    <p><span class="font-semibold text-[#2A2A2A]">Clinic Address:</span> [Your Full Clinic Address Here]</p>
+                    <p class="mt-4 md:mt-6 italic text-xs md:text-base text-gray-500">All consultation fees will be discussed and processed at the clinic during your visit.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 md:px-8">
+            <h2 class="section-heading text-3xl md:text-4xl lg:text-5xl">About Dr. Chaudhari</h2>
+            <div class="text-gray-700 text-base md:text-lg leading-relaxed">
+                <p class="mb-6">Dr. Chaudhari is a highly qualified and compassionate **female Homeopathic Doctor** holding both a **BHMS and an MD in Homeopathy**. With **4 years of dedicated consultation experience**, she is deeply committed to providing personalized and holistic healthcare to her patients.</p>
+
+                <p class="mb-6">Her practice is firmly rooted in the classical homeopathic tradition. Dr. Chaudhari meticulously applies the **Repertory approach** to select remedies that are precisely tailored to each individual's unique constitution and specific health concerns. She firmly believes in empowering the body's innate healing mechanisms, focusing on addressing the root cause of illness rather than merely suppressing symptoms, which leads to more sustainable and profound recovery.</p>
+
+                <p class="mb-6">Dr. Chaudhari's expertise encompasses a wide spectrum of health challenges, including:</p>
+                <ul class="list-disc list-inside ml-4 mb-6 space-y-2">
+                    <li>Child Health Issues</li>
+                    <li>Kidney Stones</li>
+                    <li>Hair Loss</li>
+                    <li>Stomach Problems</li>
+                    <li>Migraines</li>
+                    <li>Women's Care</li>
+                </ul>
+
+                <p>At our clinic, we are dedicated to creating a warm, supportive, and confidential environment where every patient feels genuinely heard, understood, and respected. Dr. Chaudhari looks forward to guiding you on your personal path to sustainable health and holistic well-being through expert homeopathic treatment.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-16 md:py-24 bg-[#F2F4F7]">
+        <div class="container mx-auto px-4 sm:px-6 md:px-8">
+            <h2 class="section-heading text-3xl md:text-4xl lg:text-5xl">Frequently Asked Questions</h2>
+            <div class="space-y-4 md:space-y-5 max-w-4xl mx-auto">
+                <div class="faq-item" data-faq-id="1">
+                    <div class="faq-question">
+                        <span>What is Homeopathy?</span>
+                        <i class="fas fa-chevron-down faq-icon w-6 h-6"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Homeopathy is a gentle yet powerful system of medicine that treats the individual as a whole, not just their symptoms. It uses highly diluted natural substances to stimulate your body's own healing abilities, aiming for lasting relief and improved overall health.</p>
+                    </div>
+                </div>
+                <div class="faq-item" data-faq-id="2">
+                    <div class="faq-question">
+                        <span>How do I book a clinic appointment?</span>
+                        <i class="fas fa-chevron-down faq-icon w-6 h-6"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Booking your appointment is simple! Please call us directly at +91 [Your Phone Number] during our clinic hours. Our friendly staff will assist you in finding a convenient time slot for your consultation at our clinic location.</p>
+                    </div>
+                </div>
+                <div class="faq-item" data-faq-id="3">
+                    <div class="faq-question">
+                        <span>Is there an upfront fee for booking?</span>
+                        <i class="fas fa-chevron-down faq-icon w-6 h-6"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No, there is no upfront fee required when you book your appointment over the phone. All consultation fees will be discussed transparently and processed at the clinic during your visit, ensuring a straightforward process.</p>
+                    </div>
+                </div>
+                <div class="faq-item" data-faq-id="4">
+                    <div class="faq-question">
+                        <span>What should I bring for my first consultation?</span>
+                        <i class="fas fa-chevron-down faq-icon w-6 h-6"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>To help Dr. Chaudhari understand your health comprehensively, please bring any relevant past medical reports, previous prescriptions, and a detailed chronological history of your current symptoms and overall health concerns. This ensures a thorough and personalized assessment.</p>
+                    </div>
+                </div>
+                 <div class="faq-item" data-faq-id="5">
+                    <div class="faq-question">
+                        <span>Are homeopathic medicines safe?</span>
+                        <i class="fas fa-chevron-down faq-icon w-6 h-6"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely. Homeopathic medicines are prepared through a process of serial dilution, making them extremely gentle and virtually free from side effects. They are safe for all age groups, including infants and pregnant women, and can often be used alongside conventional treatments (always inform your doctor about all medications you are taking).</p>
+                    </div>
+                </div>
+                <div class="faq-item" data-faq-id="6">
+                    <div class="faq-question">
+                        <span>How long does homeopathic treatment take to heal?</span>
+                        <i class="fas fa-chevron-down faq-icon w-6 h-6"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>The healing time with homeopathy is highly individual. It depends on factors like the nature and duration of your condition, your overall vitality, and how consistently you follow the treatment plan. While acute issues may resolve quickly, chronic or long-standing issues may require consistent treatment over several months to achieve deep, lasting relief and prevent recurrence, focusing on holistic improvement.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 md:px-8">
+            <h2 class="section-heading text-3xl md:text-4xl lg:text-5xl">Connect With Us</h2>
+            <p class="text-gray-700 text-base md:text-xl mb-10 md:mb-16 text-center max-w-4xl mx-auto leading-relaxed">We are here to answer your questions and guide you on your journey to better health. Please call us or visit our clinic.</p>
+            <div class="bg-gray-100 p-8 md:p-12 shadow-lg grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+                <div>
+                    <h3 class="text-xl md:text-2xl font-semibold text-[#2A2A2A] mb-5 md:mb-6">Get in Touch Directly</h3>
+                    <p class="text-gray-700 mb-4 md:mb-5 text-base md:text-lg"><span class="font-semibold text-[#2A2A2A]">Email:</span> <a href="mailto:your.email@example.com" class="text-[#005F60] hover:underline">your.email@example.com</a></p>
+                    <p class="text-gray-700 mb-4 md:mb-5 text-base md:text-lg"><span class="font-semibold text-[#2A2A2A]">Phone:</span> <a href="tel:+91[Your Phone Number]" class="text-[#66BB6A] hover:underline">+91 [Your Phone Number]</a></p>
+                    <p class="text-gray-700 mb-4 md:mb-5 text-base md:text-lg"><span class="font-semibold text-[#2A2A2A]">Address:</span> [Your Full Clinic Address Here]</p>
+                    <p class="text-gray-700 mt-6 md:mt-8 text-base md:text-lg"><span class="font-semibold text-[#2A2A2A]">Clinic Hours:</span> [e.g., Monday - Saturday, 10:00 AM - 1:00 PM & 5:00 PM - 8:00 PM IST]</p>
+                </div>
+                <div>
+                    <h3 class="text-xl md:text-2xl font-semibold text-[#2A2A2A] mb-5 md:mb-6">Follow Our Journey</h3>
+                    <p class="text-gray-700 text-base md:text-lg mb-6 md:mb-8">Stay connected with us on social media for health tips, updates, and more.</p>
+                    <div class="flex space-x-6 md:space-x-8">
+                        <a href="#" class="text-gray-600 hover:text-[#B8926A] transition duration-300 transform hover:scale-110"><i class="fab fa-facebook-f text-3xl md:text-4xl"></i></a>
+                        <a href="#" class="text-gray-600 hover:text-[#B8926A] transition duration-300 transform hover:scale-110"><i class="fab fa-instagram text-3xl md:text-4xl"></i></a>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-[#2C3E50] text-white py-8 md:py-10">
+        <div class="container mx-auto px-4 sm:px-6 md:px-8 text-center text-sm md:text-base">
+            <p>&copy; 2023 Dr. Chaudhari. All rights reserved.</p>
+            <p class="mt-2 md:mt-3"><a href="#" class="text-gray-400 hover:text-white transition duration-300">Privacy Policy</a> | <a href="#" class="text-gray-400 hover:text-white transition duration-300">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Client-side JavaScript for FAQ toggle
+        document.addEventListener('DOMContentLoaded', () => {
+            // FAQ Toggle Logic
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const answer = item.querySelector('.faq-answer');
+                    const icon = item.querySelector('.faq-icon');
+
+                    // Toggle active class for answer visibility
+                    if (answer.classList.contains('active')) {
+                        answer.classList.remove('active');
+                        icon.classList.remove('rotate');
+                    } else {
+                        // Close all other open FAQs first
+                        document.querySelectorAll('.faq-answer.active').forEach(openAnswer => {
+                            openAnswer.classList.remove('active');
+                            openAnswer.previousElementSibling.querySelector('.faq-icon').classList.remove('rotate');
+                        });
+                        // Open the clicked FAQ
+                        answer.classList.add('active');
+                        icon.classList.add('rotate');
+                    }
+                });
+            });
+
+            // Mobile Menu Toggle Logic
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+            const mobileMenuCloseButton = document.getElementById('mobile-menu-close-button');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+            // Open menu
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenuOverlay.classList.add('open');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+            });
+
+            // Close menu
+            mobileMenuCloseButton.addEventListener('click', () => {
+                mobileMenuOverlay.classList.remove('open');
+                document.body.style.overflow = ''; // Restore scrolling
+            });
+
+            // Close menu when a link is clicked
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenuOverlay.classList.remove('open');
+                    document.body.style.overflow = ''; // Restore scrolling
+                });
+            });
+
+            // Close menu if clicking outside the content area (on the overlay itself)
+            mobileMenuOverlay.addEventListener('click', (event) => {
+                if (event.target === mobileMenuOverlay) {
+                    mobileMenuOverlay.classList.remove('open');
+                    document.body.style.overflow = ''; // Restore scrolling
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>
